@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:body>
+    <ui:composition template="/resources/templates/mainPage.xhtml">
+        <ui:define name="content">
+            <br/>
+            <h:form>
+                <label for="dateId">Диапазон</label>
+                <input type="text" id="dateId" name="daterange"  value="" />
+            </h:form>
+
+            <br/>
+
+            <div id="placeholder" style="width:600px; height:300px"></div>
+
+            <br/>
+
+            <h:form>
+                <p:commandButton value="Сгенерировать данные"
+                                 id = "generateId"
+                                 update = "tableId @form"
+                                 action="#{dataService.generate()}"
+                                 disabled = "#{dataService.generationDisabled}"/>
+
+                <p:commandButton value="Показать на графике"
+                                 id = "showId"
+                                 oncomplete = "redrawThePlot('${dataService.jsonData}')"/>
+
+                <p:button value="Добавить данные"
+                          id = "addButtonId"
+                          outcome="/resources/templates/addingData.xhtml"/>
+
+                <p:commandButton value="Очистить данные"
+                                 id = "clearId"
+                                 action = "#{dataService.clear()}"
+                                 update = "tableId @form"
+                                 oncomplete = "clearThePlot()"/>
+            </h:form>
+
+            <br/>
+
+            <p:dataTable id = "tableId" var="dataObj" value="#{dataService.dataList}"
+                         scrollable="true" scrollHeight="500">
+                <p:column headerText="Id">
+                    <h:outputText value="#{dataObj.id}" />
+                </p:column>
+
+                <p:column headerText="Дата" sortBy="#{dataObj.date}">
+                    <h:outputText value="#{dataObj.date}" />
+                </p:column>
+
+                <p:column headerText="Значение">
+                    <h:outputText value="#{dataObj.value}" />
+                </p:column>
+
+                <p:column headerText="Описание">
+                    <h:outputText value="#{dataObj.description}" />
+                </p:column>
+
+            </p:dataTable>
+
+            <script type="text/javascript">
+
+                var plot;
+                var options = {
+                    label: "Some data",
+                    series: {
+                        lines: {show: true},
+                        points: {show: true}
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 200
+                    },
+                    xaxis: {mode: "time"}
+                };
+                var data = [];
+
+                $(document).ready(function(){
+                    plot = $.plot("#placeholder", data, options);
+                });
+
+                function redrawThePlot(jsonData){
+                    data = jsonData;
+                    jsonData = [];
+                    data = data != "" ? $.parseJSON(data) : {};
+                    plot = $.plot("#placeholder", [data], options);
+                }
+
+                function clearThePlot(){
+                    var data = [];
+                    $.plot("#placeholder", data, options);
+                }
+
+
+                var startDate;
+                var endDate;
+                $("#dateId").daterangepicker({}, function(start, end) {
+                    $('#dateId span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+                    startDate = start;
+                    endDate = end;
+                    options.xaxis.min = startDate;
+                    options.xaxis.max = endDate;
+                    plot.setupGrid();
+                    plot.draw();
+                });
+                //$('#dateId span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
+            </script>
+
+        </ui:define>
+    </ui:composition>
+    </h:body>
+</f:view>
+</html>

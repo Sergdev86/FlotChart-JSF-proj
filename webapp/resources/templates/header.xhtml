@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</h:head>
+<f:view>
+    <h:body>
+        <ui:composition>
+                <ul style="background-color: grey" class="nav nav-tabs">
+                    <li class="active">
+                        <h:link role="button" class="btn btn-primary" style="background: lightgreen;
+                            color: black" outcome="/resources/templates/chartPage.xhtml">
+                                <span class="glyphicon glyphicon-home"></span></h:link></li>
+
+                    <li style="float:right">
+                        <h:form>
+                            <h:commandButton  id="logoutId" value="Выйти" class="btn btn-primary"
+                                              action="#{loginManager.logout}" /></h:form></li>
+
+                    <li style="float:right; text-align: center; padding: 10px">
+                        <h:outputLabel for="logoutId" class="col-1 col-form-label" style="float:right" value="#{user.email}" /></li>
+
+                </ul>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>

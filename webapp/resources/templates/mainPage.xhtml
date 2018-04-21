@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head><title>Main Page Title</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!--<script language="javascript" type="text/javascript" src="/resources/js/flot/jquery.min.js"></script>-->
+        <script type="jscript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+        <script type="jscript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script language="javascript" type="text/javascript" src="/resources/js/flot/jquery.flot.js"></script>
+        <script language="javascript" type="text/javascript" src="/resources/js/flot/jquery.flot.time.min.js"></script>
+        <script type="text/javascript" src="/resources/js/moment.min.js"></script>
+        <script type="text/javascript" src="/resources/js/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="/resources/css/daterangepicker.css" />
+        <link rel="stylesheet" type="text/css" href="/resources/css/custom.css" />
+        <script type="text/javascript" src="/resources/js/dataTable/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/resources/css/dataTable/jquery.dataTables.min.css" />
+    </h:head>
+
+    <h:body>
+
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/resources/templates/header.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content" >
+                <ui:include src="/resources/templates/content.xhtml" />
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

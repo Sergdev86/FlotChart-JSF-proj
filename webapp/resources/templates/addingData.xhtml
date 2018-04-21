@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+<h:head>
+
+</h:head>
+<h:body>
+    <ui:composition template="/resources/templates/mainPage.xhtml">
+        <ui:define name="content">
+
+            <h:form id="form">
+
+                <p:growl id="growl" showDetail="true" life="5000" />
+
+                <h:panelGrid columns="1" cellpadding="3">
+
+                    <p:outputLabel for="datetime" value="Дата:" style="font-weight:bold"/>
+                    <p:calendar id="datetime" value="#{dataService.addedDate}" pagedate="true"
+                                required="true" navigator="true" mask="true"/> <br/>
+
+                    <h:outputLabel for="number" value="Значение:" style="font-weight:bold"/>
+                    <p:inputText id="number" value="#{data.value}" required="true" label="Значение">
+                        <f:validateDoubleRange maximum="200" />
+                    </p:inputText>
+                    <p:message for="number" />
+
+                    <h:outputLabel for="desc" value="Описание" style="font-weight:bold"/>
+                    <p:inputTextarea id="desc" value="#{data.description}"  label="Описание">
+                        <f:validateLength  maximum="100" />
+                    </p:inputTextarea>
+                    <p:message for="desc" />
+
+                </h:panelGrid>
+
+                <p:commandButton value="Сохранить"
+                                 update = "growl"
+                                 actionListener="#{dataService.addData()}"
+                                 validateClient="true"
+                                 style="margin-right:10px"/>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</f:view>
+</html>
