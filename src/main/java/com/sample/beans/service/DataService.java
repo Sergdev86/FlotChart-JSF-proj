@@ -25,9 +25,11 @@ public class DataService implements Serializable{
     @ManagedProperty(value = "#{data}")
     private Data dataObj;
 
+
     public DataService(){
 
     }
+
 
     public Data getDataObj() {
         return dataObj;
